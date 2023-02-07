@@ -33,7 +33,7 @@ Chunk：编译完成准备输出时，webpack 会将 module 按特定的规则�
 Loader：资源内容转换器，其实就是实现从内容 A 转换 B 的转换器
 Plugin：webpack构建过程中，会在特定的时机广播对应的事件，插件监听这些事件，在特定时间点介入编译过程
 
-#一句话简介构建过程就是：
+# 一句话简介构建过程就是：
 1. webpack在启动后自动从配置文件中的entry开始
 2. 再从配置文件中module开始递归解析Entry依赖的所有module，每找到一个module，就会根据配置的loader去找出对应的转换规则，对module进行转换后，再解析出当前Module依赖的Module
 3. 再将这些模块以entry为单位进行分组，一个entry和其依赖的的Module，被分到一个组里也就是一个chunk
