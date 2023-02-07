@@ -33,6 +33,54 @@
 
 git reset 的作用便是将 HEAD 指向的版本进行变更，不同的参数三棵树的状况不一样
 
+## git rebase
+
+### 切开发分支
+  ``` 
+  git checkout -b feat-a 
+  ```
+### 将分支合并到feat-a分支
+  ```
+  git siwtch feat-a
+
+  git rebase dev
+
+  // 如果有冲突解决冲突
+
+  git rebase --continue
+  ```
+  
+#### 推送
+
+##### 若当前feat-a分支只有你自己在开发，没有其他成员的操作，个人建议可用，强制推送 
+```
+git push --force origin feat-a
+```
+
+##### 如果有其他人在这个分支上和你一起开发的话，使用命令
+```
+git push --force-with-lease origin feature
+```
+
+## git merge和git rebase的优缺点
+
+git merge
+
+优点：不会破坏原分支的提交记录。
+缺点：会产生额外的提交记录，并进行两条分支线的合并。
+
+
+git rebase
+
+优点：无需新增提交记录到目标分支，reabse后可以直接将对象分支的提交历史加到目标分支上，形成线性提交历史记录，更加直观。
+缺点：不能在一个共享分支上进行reabse操作，会带来分支安全问题。
+
+## git merge和git rebase的正确使用
+
+合代码到公共分支的时候使用git merge，书写正确规范的merge commits留下记录。
+合代码到个人分值的时候使用git rebase，可以不污染分支的历史提交记录，形成简介的线性记录。
+
+
 写法 `git reset HEAD~2` `git reset 4564sf5s`
 
 1. `git reset --soft HEAD`
