@@ -1,6 +1,6 @@
 ## 简介
 
-前面笔者已经介绍过了`windows`的抓包神器[fiddler](https://juejin.cn/post/7044413786341507079 "https://juejin.cn/post/7044413786341507079")，今天来说说`mac`抓包神器`charles`。老规矩，关于`charles`的使用和介绍笔者不再多说，网上教程很多。笔者今天主要介绍的是使用`charles`在`mac`上怎么抓取PC端、移动端的`http`和`https`包。
+`mac`抓包神器`charles`.`charles`的使用和介绍笔者不再多说，网上教程很多。今天主要介绍的是使用`charles`在`mac`上怎么抓取PC端、移动端的`http`和`https`包。
 
 别急着划走，结尾有惊喜。
 
@@ -92,7 +92,3 @@
 ![image.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/ccaed994aa8046c4aba4726e34136301~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0.awebp?)
 
 选完需要调试的网站后，mac上就会出现控制台了，我们就能在控制台进行我们想要的操作啦。
-
-## 后记
-
-好了感谢小伙伴们的耐心观看，真心希望能够帮助到你们。本文为笔者个人学习笔记，如有谬误，还请告知，万分感谢！如果本文对你有所帮助，还请点个关注点个赞~，您的支持是笔者不断更新的动力。
