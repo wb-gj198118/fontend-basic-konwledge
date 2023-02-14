@@ -38,3 +38,7 @@ Plugin：webpack构建过程中，会在特定的时机广播对应的事件，�
 2. 再从配置文件中module开始递归解析Entry依赖的所有module，每找到一个module，就会根据配置的loader去找出对应的转换规则，对module进行转换后，再解析出当前Module依赖的Module
 3. 再将这些模块以entry为单位进行分组，一个entry和其依赖的的Module，被分到一个组里也就是一个chunk
 4. 最后webpack会把所有的chunk转换为文件输出，在整个事件流中，webpack会在适当的时机里执行plugin里面的逻辑
+
+[demo1](https://github.com/wb-gj198118/webpack-learning)
+
+[demo2](https://github.com/wb-gj198118/webpack-core)

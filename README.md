@@ -1,1 +1,1 @@
-# fontend-basic-konwledge
+# 记录一些基础知识&遇到过的一些问题归纳
