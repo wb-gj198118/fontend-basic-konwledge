@@ -27,8 +27,7 @@
 git config --global user.name "XXX"
 
 git config --global user.email 123123123@qq.com
-复制代码
-复制代码
+
 ```
 
 只设置当前仓库信息
