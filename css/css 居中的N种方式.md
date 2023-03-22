@@ -183,13 +183,9 @@
 }
 ```
 
-
-
 #### 具体效果如下：
 
 ![image-20210729232748854](../../../../Library/Application Support/typora-user-images/image-20210729232748854.png)
-
-
 
 ## 6. table 表格元素
 
