@@ -19,34 +19,22 @@ requestAnimationFrame 方法会告诉**浏览器希望执行动画并请求浏�
 
 在使用和实现上， requestAnimationFrame 与 setTimeout 类似。我们看个例子：
 
-1.  `let count = 0;`
-    
-2.  `let rafId = null;`
-    
-3.  `// requestAnimationFrame 调用该函数时，自动传入的一个时间`
-    
-4.  `function requestAnimation(time) {`
-    
-5.    `console.log(time); // 打印执行requestAnimation函数的时刻`
-    
-6.    `// 动画没有执行完，则递归渲染`
-    
-7.    `if (count < 10) {`
-    
-8.      `count++;`
-    
-9.      `// 渲染下一帧`
-    
-10.      `rafId = window.requestAnimationFrame(requestAnimation);`
-    
-11.    `}`
-    
-12.  `}`
-    
-13.  `// 渲染第一帧`
-    
-14.  `window.requestAnimationFrame(requestAnimation);`
-    
+```js
+let count = 0;
+let rafId = null;
+// requestAnimationFrame 调用该函数时，自动传入的一个时间`
+function requestAnimation(time) {
+  console.log(time); // 打印执行requestAnimation函数的时刻`
+  // 动画没有执行完，则递归渲染`
+  if (count < 10) {
+    count++;
+    // 渲染下一帧`
+    rafId = window.requestAnimationFrame(requestAnimation);
+  }
+}
+// 渲染第一帧
+window.requestAnimationFrame(requestAnimation);
+```  
 
 ## 三、requestAnimationFrame怎么执行的？
 
@@ -82,29 +70,19 @@ requestAnimationFrame 方法会告诉**浏览器希望执行动画并请求浏�
     
 -   注意：当页面被隐藏或最小化时，定时器setTimeout仍在后台执行动画任务，此时刷新动画是完全没有意义的（实际上 FireFox/Chrome 浏览器对定时器做了优化：页面闲置时，如果时间间隔小于 1000ms，则停止定时器，与requestAnimationFrame行为类似。如果时间间隔>=1000ms，定时器依然在后台执行）
     
-
-1.  `// 在浏览器开发者工具的Console页执行下面代码。`
-    
-2.  `// 当开始输出count后，切换浏览器tab页，再切换回来，可以发现打印的值从离开前的值继续输出`
-    
-3.  `let count = 0;`
-    
-4.  `function requestAnimation() {`
-    
-5.      `if (count < 150) {`
-    
-6.          `count++;`
-    
-7.          `console.log(count);`
-    
-8.          `requestAnimationFrame(requestAnimation);`
-    
-9.      `}`
-    
-10.  `}`
-    
-11.  `requestAnimationFrame(requestAnimation);`
-    
+```js
+// 在浏览器开发者工具的Console页执行下面代码。`
+// 当开始输出count后，切换浏览器tab页，再切换回来，可以发现打印的值从离开前的值继续输出`
+let count = 0;
+function requestAnimation() {
+  if (count < 150) {
+    count++;
+    console.log(count);
+    requestAnimationFrame(requestAnimation);
+  }
+}
+requestAnimationFrame(requestAnimation);
+```
 
 -   4、能够在动画流刷新之后执行，即上一个动画流会完整执行
     
@@ -115,107 +93,63 @@ requestAnimationFrame 方法会告诉**浏览器希望执行动画并请求浏�
 
 下面是 setInterval 实现
 
-1.  `// setInterval实现`
-    
-2.  `function setInterval(callback, interval) {`
-    
-3.      `let timer`
-    
-4.      `const now = Date.now`
-    
-5.      `let startTime = now()`
-    
-6.      `let endTime = startTime`
-    
-7.      `const loop = () => {`
-    
-8.          `timer = window.requestAnimationFrame(loop)`
-    
-9.          `endTime = now()`
-    
-10.          `if (endTime - startTime >= interval) {`
-    
-11.              `startTime = endTime = now()`
-    
-12.              `callback(timer)`
-    
-13.          `}`
-    
-14.      `}`
-    
-15.      `timer = window.requestAnimationFrame(loop)`
-    
-16.      `return timer`
-    
-17.  `}`
-    
-18.    
-    
-19.  `let a = 0`
-    
-20.  `setInterval(timer => {`
-    
-21.      `console.log(a)`
-    
-22.      `a++`
-    
-23.      `if (a === 3) window.cancelAnimationFrame(timer)`
-    
-24.  `}, 1000)`
-    
-25.  `// 0`
-    
-26.  `// 1`
-    
-27.  `// 2`
+```js
+// setInterval实现
+function setInterval(callback, interval) {
+  let timer;
+  const now = Date.now;
+  let startTime = now();
+  let endTime = startTime;
+  const loop = () => {
+    timer = window.requestAnimationFrame(loop);
+    endTime = now();
+    if (endTime - startTime >= interval) {
+      startTime = endTime = now();
+      callback(timer);
+    }
+  };
+  timer = window.requestAnimationFrame(loop);
+  return timer;
+}
+
+let a = 0;
+setInterval((timer) => {
+  console.log(a);
+  a++;
+  if (a === 3) window.cancelAnimationFrame(timer);
+}, 1000);
+// 0
+// 1
+// 2
+```
     
 
 下面是 setTimeout 实现：
 
-1.  `// setTimeout 实现`
-    
-2.  `function setTimeout(callback, interval) {`
-    
-3.      `let timer`
-    
-4.      `const now = Date.now`
-    
-5.      `let startTime = now()`
-    
-6.      `let endTime = startTime`
-    
-7.      `const loop = () => {`
-    
-8.          `timer = window.requestAnimationFrame(loop)`
-    
-9.          `endTime = now()`
-    
-10.          `if (endTime - startTime >= interval) {`
-    
-11.              `callback(timer)`
-    
-12.              `window.cancelAnimationFrame(timer)`
-    
-13.          `}`
-    
-14.      `}`
-    
-15.      `timer = window.requestAnimationFrame(loop)`
-    
-16.      `return timer`
-    
-17.  `}`
-    
-18.    
-    
-19.  `let a = 0`
-    
-20.  `setTimeout(timer => {`
-    
-21.      `console.log(a)`
-    
-22.      `a++`
-    
-23.  `}, 1000)`
-    
-24.  `// 0`
+```js
+// setTimeout 实现
+function setTimeout(callback, interval) {
+  let timer;
+  const now = Date.now;
+  let startTime = now();
+  let endTime = startTime;
+  const loop = () => {
+    timer = window.requestAnimationFrame(loop);
+    endTime = now();
+    if (endTime - startTime >= interval) {
+      callback(timer);
+      window.cancelAnimationFrame(timer);
+    }
+  };
+  timer = window.requestAnimationFrame(loop);
+  return timer;
+}
+
+let a = 0;
+setTimeout((timer) => {
+  console.log(a);
+  a++;
+}, 1000);
+
+// 0
+```
