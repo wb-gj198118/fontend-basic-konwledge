@@ -572,6 +572,4 @@ tree.insert(18);
 tree.insert(25);
 ```
 
-最终构建的树如下图：
-
 ![](../images/dataStructure/4.jpg)
